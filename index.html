@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Jogo educacional de memorização da montagem de mesa cirúrgica para instrumentadores." />
+  <title>Montagem da Mesa Cirúrgica</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══════════════ CABEÇALHO ══════════════ -->
+  <header id="app-header">
+    <div id="header-left">
+      <h1>🔪 Montagem da Mesa Cirúrgica</h1>
+      <p id="subtitle">Arraste os instrumentos para os locais corretos na mesa</p>
+    </div>
+    <div id="header-right">
+      <div id="score-display">
+        <span id="score-icon">✅</span>
+        <span id="score-text">Acertos: <strong id="score-count">0</strong> / <strong id="score-total">0</strong></span>
+      </div>
+      <div id="mode-badge" class="badge badge-study">📚 Modo Estudo</div>
+      <div id="side-badge" class="badge badge-side">⬅ Lado: Esquerdo</div>
+    </div>
+  </header>
+
+  <!-- ══════════════ TOOLBAR ══════════════ -->
+  <div id="toolbar">
+    <button id="btn-restart" class="btn btn-danger" title="Reiniciar o jogo">🔄 Reiniciar</button>
+    <button id="btn-toggle-mode" class="btn btn-primary" title="Alternar entre Modo Estudo e Modo Prova">🎓 Modo Prova</button>
+    <button id="btn-toggle-side" class="btn btn-secondary" title="Trocar lado do cirurgião">🔀 Trocar Lado</button>
+    <button id="btn-show-answer" class="btn btn-info" title="Mostrar / ocultar gabarito">👁 Gabarito</button>
+    <div id="feedback-msg" class="feedback-idle">Bem-vindo! Arraste os instrumentos para a mesa.</div>
+  </div>
+
+  <!-- ══════════════ ÁREA PRINCIPAL ══════════════ -->
+  <main id="main-area">
+
+    <!-- Mesa cirúrgica -->
+    <section id="table-section">
+      <div id="table-label">Mesa Cirúrgica</div>
+      <div id="surgical-table">
+        <!-- panoazul.png é definido como background via CSS dinâmico -->
+        <!-- Os slots e instrumentos colocados são injetados por JS -->
+      </div>
+
+      <!-- Legenda dos quadrantes -->
+      <div id="quadrant-labels">
+        <span class="ql ql-top-left">Diérese / Cortes</span>
+        <span class="ql ql-top-right">Hemostasia</span>
+        <span class="ql ql-bottom-left">Especiais</span>
+        <span class="ql ql-bottom-right">Síntese</span>
+      </div>
+    </section>
+
+    <!-- Painel lateral de detalhes -->
+    <aside id="detail-panel">
+      <div id="detail-placeholder">
+        <span class="detail-icon">🔍</span>
+        <p>Clique em um instrumento para ver os detalhes.</p>
+      </div>
+      <div id="detail-content" class="hidden">
+        <div id="detail-img-wrap">
+          <img id="detail-img" src="" alt="Instrumento" />
+        </div>
+        <h3 id="detail-name">—</h3>
+        <span id="detail-category" class="category-tag">—</span>
+        <div class="detail-section">
+          <strong>Como é:</strong>
+          <p id="detail-description">—</p>
+        </div>
+        <div class="detail-section">
+          <strong>Para que serve:</strong>
+          <p id="detail-function">—</p>
+        </div>
+        <button id="btn-close-detail" class="btn btn-sm btn-secondary">✕ Fechar</button>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ══════════════ BANDEJA DE INSTRUMENTOS ══════════════ -->
+  <section id="tray-section">
+    <h2 id="tray-title">🧰 Bandeja de Instrumentos</h2>
+    <div id="instrument-tray">
+      <!-- Preenchido dinamicamente por JS -->
+    </div>
+  </section>
+
+  <!-- ══════════════ MODAL DE VITÓRIA ══════════════ -->
+  <div id="victory-overlay" class="hidden">
+    <div id="victory-box">
+      <div id="victory-icon">🏆</div>
+      <h2>Parabéns!</h2>
+      <p>Você montou a mesa cirúrgica corretamente.</p>
+      <p id="victory-side-info"></p>
+      <button id="btn-victory-restart" class="btn btn-primary">🔄 Jogar Novamente</button>
+    </div>
+  </div>
+
+  <!-- ══════════════ GABARITO OVERLAY ══════════════ -->
+  <div id="answer-overlay" class="hidden">
+    <div id="answer-box">
+      <h2>📋 Gabarito</h2>
+      <p id="answer-side-label"></p>
+      <div id="answer-grid">
+        <!-- Preenchido por JS -->
+      </div>
+      <button id="btn-close-answer" class="btn btn-secondary">✕ Fechar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
