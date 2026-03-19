@@ -215,41 +215,45 @@ const INSTRUMENTS = [
  * slotX/slotY em % (0–100), slotW/slotH em % da dimensão da mesa.
  */
 const LEFT_LAYOUT_SLOTS = [
-  // ── Linha superior (metade superior esquerda) ──────
-  // Bakaus / Backhaus (canto esquerdo superior)
-  { id: 'backaus',         slotX: 13, slotY: 34, slotW: 5,  slotH: 18, rotation: -15, order: 1  },
-  // Baby Kocher (logo ao lado do bakaus)
-  { id: 'babykocher',      slotX: 22, slotY: 20, slotW: 5,  slotH: 20, rotation: -12, order: 2  },
-  // Allis (centro-esquerda superior)
-  { id: 'allis',           slotX: 33, slotY: 30, slotW: 5,  slotH: 18, rotation: -10, order: 3  },
-  // Farabeuf (centro da mesa, levemente para esquerda)
-  { id: 'farabeuf',        slotX: 38, slotY: 53, slotW: 10, slotH: 7,  rotation: 0,   order: 4  },
-  // Mixter (centro-direita superior)
-  { id: 'mixter',          slotX: 52, slotY: 32, slotW: 5,  slotH: 20, rotation: -5,  order: 5  },
-  // Porta-agulha Videa (superior direita)
-  { id: 'portaagulhavidea',slotX: 62, slotY: 20, slotW: 5,  slotH: 18, rotation: 0,   order: 6  },
-  // Pinça dente de rato (superior direita, mais fina)
-  { id: 'pincadentederato',slotX: 73, slotY: 17, slotW: 3,  slotH: 22, rotation: 0,   order: 7  },
-  // Pinça anatômica (extrema direita superior, mais fina)
-  { id: 'pincaanatomica',  slotX: 83, slotY: 22, slotW: 3,  slotH: 22, rotation: 0,   order: 8  },
+  // ── LINHA SUPERIOR ESQUERDA ─────────────────────────────────────────
+  // Backhaus — menor, canto esquerdo meso
+  { id: 'backaus',          slotX:  6, slotY: 38, slotW:  7, slotH: 18, rotation: -12, order: 1  },
+  // Baby Kocher — pinça média, ligeiramente inclinada
+  { id: 'babykocher',       slotX: 16, slotY: 16, slotW:  8, slotH: 28, rotation: -10, order: 2  },
+  // Allis — pinça média
+  { id: 'allis',            slotX: 28, slotY: 26, slotW:  8, slotH: 28, rotation:  -8, order: 3  },
 
-  // ── Linha inferior (metade inferior) ──────────────
-  // Kocher (esquerda inferior)
-  { id: 'kocher',          slotX: 20, slotY: 73, slotW: 5,  slotH: 18, rotation: -10, order: 9  },
+  // ── CENTRO ──────────────────────────────────────────────────────────
+  // Farabeuf — horizontal, centro da mesa
+  { id: 'farabeuf',         slotX: 32, slotY: 50, slotW: 16, slotH:  9, rotation:   0, order: 4  },
+
+  // ── LINHA SUPERIOR DIREITA ──────────────────────────────────────────
+  // Mixter — pinça longa, centro-direita
+  { id: 'mixter',           slotX: 48, slotY: 22, slotW:  8, slotH: 32, rotation:  -4, order: 5  },
+  // Porta-agulha Videa — direita, vertical
+  { id: 'portaagulhavidea', slotX: 60, slotY: 12, slotW:  8, slotH: 30, rotation:   0, order: 6  },
+  // Pinça dente de rato — fina, vertical
+  { id: 'pincadentederato', slotX: 73, slotY: 10, slotW:  5, slotH: 30, rotation:   0, order: 7  },
+  // Pinça anatômica — muito fina, extrema direita
+  { id: 'pincaanatomica',   slotX: 83, slotY: 14, slotW:  5, slotH: 30, rotation:   0, order: 8  },
+
+  // ── LINHA INFERIOR ──────────────────────────────────────────────────
+  // Kocher — clamp robusto, esquerda inferior
+  { id: 'kocher',           slotX: 10, slotY: 65, slotW:  8, slotH: 30, rotation:  -8, order: 9  },
   // Kelly reta
-  { id: 'kellyreta',       slotX: 31, slotY: 75, slotW: 5,  slotH: 17, rotation: -8,  order: 10 },
+  { id: 'kellyreta',        slotX: 22, slotY: 66, slotW:  8, slotH: 28, rotation:  -6, order: 10 },
   // Kelly curva
-  { id: 'kellycurva',      slotX: 40, slotY: 74, slotW: 5,  slotH: 17, rotation: -6,  order: 11 },
-  // Kelly mosquito
-  { id: 'kellymosquito',   slotX: 50, slotY: 72, slotW: 4,  slotH: 17, rotation: -4,  order: 12 },
-  // Tesoura Metzenbaum reta
-  { id: 'metzenbaumreta',  slotX: 60, slotY: 65, slotW: 4,  slotH: 22, rotation: 0,   order: 13 },
-  // Tesoura Mayo
-  { id: 'mayo',            slotX: 70, slotY: 70, slotW: 5,  slotH: 20, rotation: 0,   order: 14 },
+  { id: 'kellycurva',       slotX: 34, slotY: 65, slotW:  8, slotH: 28, rotation:  -4, order: 11 },
+  // Kelly mosquito — menor
+  { id: 'kellymosquito',    slotX: 46, slotY: 64, slotW:  7, slotH: 26, rotation:  -2, order: 12 },
+  // Tesoura Metzenbaum reta — longa e fina
+  { id: 'metzenbaumreta',   slotX: 58, slotY: 58, slotW:  6, slotH: 34, rotation:   0, order: 13 },
+  // Tesoura Mayo — robusta
+  { id: 'mayo',             slotX: 68, slotY: 60, slotW:  8, slotH: 32, rotation:   0, order: 14 },
   // Tesoura Metzenbaum curva
-  { id: 'metzenbaumcurva', slotX: 78, slotY: 68, slotW: 4,  slotH: 20, rotation: 0,   order: 15 },
-  // Cabo de bisturi (extrema direita inferior, bem fino)
-  { id: 'bisturi',         slotX: 87, slotY: 72, slotW: 2,  slotH: 18, rotation: 0,   order: 16 },
+  { id: 'metzenbaumcurva',  slotX: 78, slotY: 58, slotW:  6, slotH: 32, rotation:   2, order: 15 },
+  // Cabo de bisturi — muito fino
+  { id: 'bisturi',          slotX: 89, slotY: 64, slotW:  4, slotH: 26, rotation:   0, order: 16 },
 ];
 
 /**
