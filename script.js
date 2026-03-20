@@ -229,7 +229,7 @@ const INSTRUMENTS = [
 const LEFT_LAYOUT_SLOTS = [
   // ── METADE SUPERIOR — Especiais e Síntese ──────────────────────────
   // flipImg:true → só a IMAGEM é invertida, o slot (label/número) fica normal
-  { id: 'backaus',          slotX:  5,  slotY: 38, slotW:  7, slotH: 18, rotation: -12, flipImg: true,  order: 1  },
+  { id: 'backaus',          slotX:  0,  slotY: 36, slotW:  7, slotH: 18, rotation: -12, flipImg: true,  order: 1  },
   { id: 'babykocher',       slotX: 15,  slotY: 12, slotW:  8, slotH: 28, rotation: -10, flipImg: true,  order: 2  },
   { id: 'coracao',          slotX:  4,  slotY: 11, slotW:  8, slotH: 28, rotation:  -8, flipImg: true,  order: 3  },
   { id: 'allis',            slotX: 27,  slotY: 22, slotW:  8, slotH: 28, rotation:  -8, flipImg: true,  order: 4  },
