@@ -354,16 +354,19 @@ body.show-answer .slot-order { opacity: 1 !important; }
 .instrument-placed img {
   /* scale(3.0): compensa as bordas transparentes dos PNGs.
      O instrumento visual ocupa ~30-40% do PNG, então 3x
-     traz o instrumento real para o tamanho adequado na mesa.
-     ─ Aumente este valor se ainda parecer pequeno ─ */
+     traz o instrumento real para o tamanho adequado na mesa. */
   width: 100%;
   height: 100%;
   object-fit: contain;
   pointer-events: none;
   transform: scale(3.0);
   filter: drop-shadow(0 3px 10px rgba(0,0,0,0.65));
-  /* transform-origin centralizado para escalar de dentro do slot */
   transform-origin: center center;
+}
+
+/* Apenas a imagem do instrumento é invertida — slot, label e número não são afetados */
+.instrument-placed .flip-img {
+  transform: scale(3.0) rotate(180deg);
 }
 
 .instrument-placed:hover { filter: brightness(1.15); z-index: 20; }
