@@ -230,14 +230,14 @@ const LEFT_LAYOUT_SLOTS = [
   // ── METADE SUPERIOR — Especiais e Síntese ──────────────────────────
   // flipImg:true → só a IMAGEM é invertida, o slot (label/número) fica normal
   { id: 'backaus',          slotX:  0,  slotY: 36, slotW:  7, slotH: 18, rotation: -12, flipImg: true,  order: 1  },
-  { id: 'babykocher',       slotX: 15,  slotY: 12, slotW:  8, slotH: 28, rotation: -10, flipImg: true,  order: 2  },
-  { id: 'coracao',          slotX:  4,  slotY: 11, slotW:  8, slotH: 28, rotation:  -8, flipImg: true,  order: 3  },
-  { id: 'allis',            slotX: 27,  slotY: 22, slotW:  8, slotH: 28, rotation:  -8, flipImg: true,  order: 4  },
-  { id: 'farabeuf',         slotX: 32,  slotY: 50, slotW: 16, slotH:  9, rotation:   0, flipImg: false, order: 5  },
-  { id: 'mixter',           slotX: 47,  slotY: 18, slotW:  8, slotH: 32, rotation:  -4, flipImg: true,  order: 6  },
-  { id: 'portaagulhavidea', slotX: 59,  slotY:  8, slotW:  8, slotH: 30, rotation:   0, flipImg: true,  order: 7  },
-  { id: 'pincadentederato', slotX: 72,  slotY:  6, slotW:  5, slotH: 30, rotation:   0, flipImg: true,  order: 8  },
-  { id: 'pincaanatomica',   slotX: 82,  slotY: 10, slotW:  5, slotH: 30, rotation:   0, flipImg: true,  order: 9  },
+  { id: 'babykocher',       slotX: 18,  slotY: 12, slotW:  8, slotH: 28, rotation: -10, flipImg: true,  order: 2  },
+  { id: 'coracao',          slotX:  8,  slotY: 11, slotW:  8, slotH: 28, rotation:  -8, flipImg: true,  order: 3  },
+  { id: 'allis',            slotX: 30,  slotY: 22, slotW:  8, slotH: 28, rotation:  -8, flipImg: true,  order: 4  },
+  { id: 'farabeuf',         slotX: 35,  slotY: 50, slotW: 16, slotH:  9, rotation:   0, flipImg: false, order: 5  },
+  { id: 'mixter',           slotX: 50,  slotY: 18, slotW:  8, slotH: 32, rotation:  -4, flipImg: true,  order: 6  },
+  { id: 'portaagulhavidea', slotX: 62,  slotY:  8, slotW:  8, slotH: 30, rotation:   0, flipImg: true,  order: 7  },
+  { id: 'pincadentederato', slotX: 74,  slotY:  6, slotW:  5, slotH: 30, rotation:   0, flipImg: true,  order: 8  },
+  { id: 'pincaanatomica',   slotX: 84,  slotY: 10, slotW:  5, slotH: 30, rotation:   0, flipImg: true,  order: 9  },
   // ── METADE INFERIOR — Hemostasia e Diérese ─────────────────────────
   { id: 'kocher',           slotX:  9,  slotY: 64, slotW:  8, slotH: 30, rotation:  -8, flipImg: true,  order: 10 },
   { id: 'kellyreta',        slotX: 21,  slotY: 65, slotW:  8, slotH: 28, rotation:  -6, flipImg: true,  order: 11 },
