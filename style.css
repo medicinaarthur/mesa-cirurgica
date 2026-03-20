@@ -679,20 +679,186 @@ body.show-answer .slot-order { opacity: 1 !important; }
 ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
-/* ══════════════════════════════
-   RESPONSIVIDADE
-══════════════════════════════ */
-@media (max-width: 900px) {
-  #main-area { flex-direction: column; padding: 12px 14px; }
-  #detail-panel { width: 100%; min-width: unset; max-height: 250px; }
-  #progress-section { grid-template-columns: 1fr; }
-  #app-header { padding: 10px 14px; }
-  #toolbar { padding: 7px 14px; }
-  #tray-section { padding: 10px 14px 20px; }
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVIDADE — MOBILE
+   Desktop: inalterado.
+   Mobile usa tap-select + tap-slot (sem drag forçado),
+   tray horizontal, bottom-sheet para detalhes.
+═══════════════════════════════════════════════════════════ */
+
+/* ── PORTRAIT / SMALL TABLET ────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Header compacto */
+  #app-header { padding: 8px 14px; gap: 6px; }
+  #app-header h1 { font-size: 0.95rem; }
+  #subtitle { display: none; }
+  #score-display { padding: 4px 10px; font-size: 0.75rem; }
+  #side-badge { display: none; }
+  .badge { padding: 3px 8px; font-size: 0.62rem; }
+
+  /* Toolbar: scroll horizontal, não quebra linha */
+  #toolbar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 7px 14px;
+    gap: 7px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  #toolbar::-webkit-scrollbar { display: none; }
+  #feedback-msg { display: none; }
+  .btn { padding: 7px 12px; font-size: 0.76rem; flex-shrink: 0; }
+
+  /* Badge do lado na toolbar (mobile) */
+  #mobile-side-badge {
+    display: inline-flex !important; align-items: center;
+    background: #dbeafe; color: #1d4ed8;
+    border: 1px solid #93c5fd; border-radius: 20px;
+    padding: 5px 10px; font-size: 0.68rem; font-weight: 700;
+    white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* ── Layout principal: coluna vertical ─────── */
+  #main-area { flex-direction: column; padding: 10px 10px 4px; gap: 8px; }
+
+  /* ── Mesa cirúrgica: largura total ──────────── */
+  #table-section { width: 100%; flex: none; }
+  #surgical-table { width: 100%; aspect-ratio: 16 / 9; max-height: none; border-radius: 8px; }
+
+  /* Texto menores dentro dos slots */
+  .slot-label { font-size: 0.40rem; padding: 1px 3px; bottom: -13px; white-space: nowrap; max-width: 60px; overflow: hidden; text-overflow: ellipsis; }
+  .slot-order { width: 13px; height: 13px; font-size: 0.46rem; top: -7px; left: -7px; }
+
+  /* Slot toca fácil no touch */
+  .slot { touch-action: none; }
+
+  /* Instrumentos colocados: scale menor no mobile */
+  .instrument-placed img { transform: scale(2.2); }
+  .instrument-placed .flip-img { transform: scale(2.2) rotate(180deg); }
+
+  /* Progress bars: 1 coluna */
+  #progress-section { grid-template-columns: 1fr; gap: 4px; margin-top: 6px; }
+  .prog-label { min-width: 75px; font-size: 0.59rem; }
+
+  /* Quadrant labels menores */
+  .ql { font-size: 0.52rem; padding: 1px 3px; }
+
+  /* ── Detail panel: oculto no mobile ─────────
+     Substituído pelo #mobile-detail-sheet abaixo */
+  #detail-panel { display: none !important; }
+
+  /* ── Bandeja: scroll horizontal ─────────────── */
+  #tray-section { padding: 8px 10px 24px; }
+  #tray-header { flex-direction: row; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  #tray-title { font-size: 0.8rem; }
+  .cat-chip { font-size: 0.58rem; padding: 2px 7px; }
+
+  #instrument-tray {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding-bottom: 8px;
+    min-height: unset;
+    align-items: flex-end;
+    scrollbar-width: thin;
+  }
+  #instrument-tray::-webkit-scrollbar { height: 4px; }
+  #instrument-tray::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+  /* Cards da bandeja: menores mas tocáveis */
+  .tray-instrument { width: 82px; min-height: 128px; padding: 8px 6px 5px; flex-shrink: 0; border-radius: 8px; }
+  .tray-instrument img { width: 56px; height: 94px; }
+  .tray-instrument-name { font-size: 0.56rem; }
+  .tray-cat-tag { font-size: 0.5rem; padding: 1px 5px; }
 }
 
-@media (max-width: 580px) {
-  .tray-instrument { width: 88px; min-height: 140px; }
-  .tray-instrument img { width: 60px; height: 100px; }
-  .btn { padding: 6px 11px; font-size: 0.76rem; }
+/* ── BOTTOM SHEET (detail panel mobile) ──────────
+   Criado dinamicamente por JS.
+   SEMPRE visível nas media queries corretas.
+──────────────────────────────────────────────── */
+#mobile-detail-sheet {
+  display: none; /* JS ativa em mobile */
 }
+
+@media (max-width: 768px) {
+  #mobile-detail-sheet {
+    display: block;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.22);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    z-index: 800;
+    transform: translateY(100%);
+    transition: transform 0.32s cubic-bezier(.32,0,.67,0);
+    max-height: 55vh;
+    overflow-y: auto;
+  }
+  #mobile-detail-sheet.sheet-open { transform: translateY(0); }
+
+  #mobile-sheet-handle {
+    width: 40px; height: 4px;
+    background: #cbd5e1; border-radius: 4px;
+    margin: 12px auto 4px;
+  }
+
+  #mobile-sheet-content {
+    display: flex; align-items: flex-start;
+    gap: 14px; padding: 6px 16px 18px;
+  }
+
+  #mobile-sheet-img {
+    width: 60px; min-width: 60px; height: 110px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.22));
+    flex-shrink: 0;
+  }
+
+  #mobile-sheet-info { flex: 1; min-width: 0; }
+  #mobile-sheet-name { font-size: 1rem; font-weight: 800; color: #1e293b; margin-bottom: 4px; line-height: 1.2; }
+
+  #mobile-sheet-category { font-size: 0.68rem; }
+
+  .msheet-label {
+    font-size: 0.62rem; font-weight: 700;
+    color: #64748b; text-transform: uppercase;
+    letter-spacing: 0.4px; margin-top: 8px; display: block;
+  }
+  #mobile-sheet-desc, #mobile-sheet-func { font-size: 0.76rem; color: #334155; margin: 2px 0 0; }
+
+  #mobile-sheet-guide {
+    text-align: center; font-size: 0.68rem;
+    color: #f59e0b; font-weight: 600;
+    background: #fefce8; border-top: 1px solid #fde047;
+    padding: 6px 16px;
+  }
+
+  #mobile-sheet-close {
+    position: absolute; top: 12px; right: 12px;
+    background: #f1f5f9; border: none; border-radius: 50%;
+    width: 28px; height: 28px; cursor: pointer;
+    font-size: 0.9rem; color: #64748b;
+    display: flex; align-items: center; justify-content: center;
+  }
+}
+
+/* ── LANDSCAPE MOBILE ────────────────────────── */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  #app-header { padding: 5px 14px; position: static; }
+  #app-header h1 { font-size: 0.88rem; }
+  #main-area { padding: 6px 10px; gap: 6px; }
+  #surgical-table { max-height: 185px; aspect-ratio: 16/9; }
+  .instrument-placed img { transform: scale(1.8); }
+  .instrument-placed .flip-img { transform: scale(1.8) rotate(180deg); }
+  #progress-section { grid-template-columns: 1fr 1fr; gap: 3px 14px; margin-top: 3px; }
+  #tray-section { padding: 6px 10px 10px; }
+  .tray-instrument { width: 68px; min-height: 108px; }
+  .tray-instrument img { width: 46px; height: 78px; }
+  #mobile-detail-sheet { max-height: 70vh; }
+}
+
+/* Badge mobile (hidden on desktop) */
+#mobile-side-badge { display: none; }

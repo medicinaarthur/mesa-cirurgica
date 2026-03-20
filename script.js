@@ -430,11 +430,21 @@ function buildTableSlots() {
 
     if (ins && ins.placed) div.classList.add('slot-filled');
 
+    if (ins && ins.placed) div.classList.add('slot-filled');
+
+    // Drag & Drop
     div.addEventListener('dragover',  onSlotDragOver);
     div.addEventListener('dragleave', onSlotDragLeave);
     div.addEventListener('drop',      onSlotDrop);
     div.addEventListener('pointerover', onSlotPointerOver);
     div.addEventListener('pointerout',  onSlotPointerOut);
+    
+    // Tap-to-place (Mobile)
+    div.addEventListener('click', () => {
+      if (state.mode === 'play' && state.selectedInstrument && !ins?.placed) {
+        handleDrop(state.selectedInstrument, slot.id);
+      }
+    });
 
     table.appendChild(div);
   });
@@ -813,6 +823,7 @@ function showDetail(instrId) {
   if (!ins) return;
   const cfg = CAT_CONFIG[ins.group] || {};
 
+  // Atualiza versão Desktop
   DOM.detailPlaceholder().classList.add('hidden');
   DOM.detailContent().classList.remove('hidden');
 
@@ -824,12 +835,46 @@ function showDetail(instrId) {
   DOM.detailDesc().textContent = ins.description;
   DOM.detailFunc().textContent = ins.functionText;
   DOM.detailSelectedInfo().classList.toggle('hidden', instrId !== SELECTED_INSTRUMENT_ID);
+
+  // Atualiza e abre versão Mobile Bottom Sheet
+  const mSheet = document.getElementById('mobile-detail-sheet');
+  if (mSheet) {
+    document.getElementById('mobile-sheet-img').src = ins.asset;
+    document.getElementById('mobile-sheet-name').textContent = ins.name;
+    const mCat = document.getElementById('mobile-sheet-category');
+    mCat.textContent = ins.category;
+    mCat.className = `category-tag ${cfg.detailClass || ''}`;
+    document.getElementById('mobile-sheet-desc').textContent = ins.description;
+    document.getElementById('mobile-sheet-func').textContent = ins.functionText;
+    
+    // Se for mobile viewport, abre
+    if (window.innerWidth <= 768) {
+      mSheet.classList.add('sheet-open');
+    }
+  }
+
+  // Highlights especiais para slots em mobile (tap-to-place flag)
+  if (state.mode === 'study' && !ins.placed) {
+    document.querySelectorAll('.slot').forEach(s => s.classList.add('mobile-tapable'));
+  } else {
+    document.querySelectorAll('.slot').forEach(s => s.classList.add('mobile-tapable'));
+  }
 }
 
 function hideDetail() {
   DOM.detailPlaceholder().classList.remove('hidden');
   DOM.detailContent().classList.add('hidden');
+  
+  // Fecha mobile sheet
+  const mSheet = document.getElementById('mobile-detail-sheet');
+  if (mSheet) mSheet.classList.remove('sheet-open');
+  
+  document.querySelectorAll('.slot').forEach(s => s.classList.remove('mobile-tapable'));
 }
+
+// Listeners de fechar para o mobile sheet
+document.getElementById('mobile-sheet-close')?.addEventListener('click', hideDetail);
+document.getElementById('mobile-sheet-handle')?.addEventListener('click', hideDetail);
 
 /* ══════════════════════════════════════════════════════
    19. FLASH CARDS
@@ -928,6 +973,9 @@ function getSurgeonSideLabel() {
 function applySurgeonSide() {
   const label = getSurgeonSideLabel();
   DOM.sideBadge().textContent = `🔪 ${label}`;
+  const mobileBadge = document.getElementById('mobile-side-badge');
+  if (mobileBadge) mobileBadge.textContent = `🔪 ${label}`;
+
   const tableInfo = DOM.tableSideInfo();
   if (tableInfo) {
     const mesa = SURGEON_SIDE === 'right' ? 'Mesa à esquerda do cirurgião' : 'Mesa à direita do cirurgião';
