@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Jogo educacional de memorização da montagem de mesa cirúrgica para instrumentadores." />
+  <meta name="description" content="Jogo educacional de memorização da montagem de mesa cirúrgica para instrumentadores e estudantes de medicina." />
   <title>Montagem da Mesa Cirúrgica</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -21,28 +21,64 @@
         <span id="score-text">Acertos: <strong id="score-count">0</strong> / <strong id="score-total">0</strong></span>
       </div>
       <div id="mode-badge" class="badge badge-study">📚 Modo Estudo</div>
-      <div id="side-badge" class="badge badge-side">⬅ Lado: Esquerdo</div>
+      <div id="side-badge" class="badge badge-side">🔪 Cirurgião: Direito | Mesa: Esquerda</div>
     </div>
   </header>
 
   <!-- ══════════════ TOOLBAR ══════════════ -->
   <div id="toolbar">
-    <button id="btn-restart" class="btn btn-danger" title="Reiniciar o jogo">🔄 Reiniciar</button>
-    <button id="btn-toggle-mode" class="btn btn-primary" title="Alternar entre Modo Estudo e Modo Prova">🎓 Modo Prova</button>
-    <button id="btn-toggle-side" class="btn btn-secondary" title="Trocar lado do cirurgião">🔀 Trocar Lado</button>
-    <button id="btn-show-answer" class="btn btn-info" title="Mostrar / ocultar gabarito">👁 Gabarito</button>
-    <div id="feedback-msg" class="feedback-idle">Bem-vindo! Arraste os instrumentos para a mesa.</div>
+    <button id="btn-restart"    class="btn btn-danger"    title="Reiniciar o jogo">🔄 Reiniciar</button>
+    <button id="btn-toggle-mode" class="btn btn-primary"  title="Alternar entre Modo Estudo e Modo Prova">🎓 Modo Prova</button>
+    <button id="btn-toggle-side" class="btn btn-secondary" title="Trocar lado do cirurgião">🔀 Trocar Lado Cirurgião</button>
+    <button id="btn-show-answer" class="btn btn-info"     title="Mostrar / ocultar gabarito">👁 Gabarito</button>
+    <button id="btn-hint"        class="btn btn-hint"     title="Destacar slot correto do instrumento selecionado">💡 Dica</button>
+    <button id="btn-flashcards"  class="btn btn-flashcard" title="Abrir Flash Cards com todos os instrumentos">🃏 Flash Cards</button>
+    <div id="feedback-msg" class="feedback-idle">Bem-vindo! Clique num instrumento na bandeja para selecionar, depois arraste para o slot correto.</div>
   </div>
 
-  <!-- ══════════════ ÁREA PRINCIPAL ══════════════ -->
+  <!-- ══════════════ ÁREA PRINCIPAL (mesa + detalhe) ══════════════ -->
   <main id="main-area">
 
     <!-- Mesa cirúrgica -->
     <section id="table-section">
-      <div id="table-label">Mesa Cirúrgica</div>
+      <div id="table-label">
+        Mesa Cirúrgica
+        <span id="table-side-info"></span>
+      </div>
       <div id="surgical-table">
-        <!-- panoazul.png é definido como background via CSS dinâmico -->
-        <!-- Os slots e instrumentos colocados são injetados por JS -->
+        <!-- Slots e instrumentos injetados por JS -->
+      </div>
+
+      <!-- Barra de progresso por categoria -->
+      <div id="progress-section">
+        <div class="prog-row">
+          <span class="prog-label cat-label-dierese">🔴 Diérese</span>
+          <div class="prog-track">
+            <div class="prog-bar prog-dierese" id="prog-bar-dierese" style="width:0%"></div>
+          </div>
+          <span class="prog-count" id="prog-count-dierese">0/4</span>
+        </div>
+        <div class="prog-row">
+          <span class="prog-label cat-label-hemostasia">🔵 Hemostasia</span>
+          <div class="prog-track">
+            <div class="prog-bar prog-hemostasia" id="prog-bar-hemostasia" style="width:0%"></div>
+          </div>
+          <span class="prog-count" id="prog-count-hemostasia">0/4</span>
+        </div>
+        <div class="prog-row">
+          <span class="prog-label cat-label-especiais">🟡 Especiais</span>
+          <div class="prog-track">
+            <div class="prog-bar prog-especiais" id="prog-bar-especiais" style="width:0%"></div>
+          </div>
+          <span class="prog-count" id="prog-count-especiais">0/5</span>
+        </div>
+        <div class="prog-row">
+          <span class="prog-label cat-label-sintese">🟢 Síntese</span>
+          <div class="prog-track">
+            <div class="prog-bar prog-sintese" id="prog-bar-sintese" style="width:0%"></div>
+          </div>
+          <span class="prog-count" id="prog-count-sintese">0/3</span>
+        </div>
       </div>
 
       <!-- Legenda dos quadrantes -->
@@ -59,6 +95,7 @@
       <div id="detail-placeholder">
         <span class="detail-icon">🔍</span>
         <p>Clique em um instrumento para ver os detalhes.</p>
+        <p class="detail-hint-text">Dica: no Modo Estudo, clicar selecionará o instrumento e destacará seu slot na mesa!</p>
       </div>
       <div id="detail-content" class="hidden">
         <div id="detail-img-wrap">
@@ -74,6 +111,9 @@
           <strong>Para que serve:</strong>
           <p id="detail-function">—</p>
         </div>
+        <div id="detail-selected-info" class="hidden">
+          <p class="selected-hint">💡 Slot destacado na mesa!</p>
+        </div>
         <button id="btn-close-detail" class="btn btn-sm btn-secondary">✕ Fechar</button>
       </div>
     </aside>
@@ -82,7 +122,16 @@
 
   <!-- ══════════════ BANDEJA DE INSTRUMENTOS ══════════════ -->
   <section id="tray-section">
-    <h2 id="tray-title">🧰 Bandeja de Instrumentos</h2>
+    <div id="tray-header">
+      <h2 id="tray-title">🧰 Bandeja de Instrumentos</h2>
+      <!-- Legenda de categorias -->
+      <div id="category-legend">
+        <span class="cat-chip cat-chip-dierese">🔴 Diérese (4)</span>
+        <span class="cat-chip cat-chip-hemostasia">🔵 Hemostasia (4)</span>
+        <span class="cat-chip cat-chip-especiais">🟡 Especiais (5)</span>
+        <span class="cat-chip cat-chip-sintese">🟢 Síntese (3)</span>
+      </div>
+    </div>
     <div id="instrument-tray">
       <!-- Preenchido dinamicamente por JS -->
     </div>
@@ -93,7 +142,7 @@
     <div id="victory-box">
       <div id="victory-icon">🏆</div>
       <h2>Parabéns!</h2>
-      <p>Você montou a mesa cirúrgica corretamente.</p>
+      <p>Você montou a mesa cirúrgica corretamente!</p>
       <p id="victory-side-info"></p>
       <button id="btn-victory-restart" class="btn btn-primary">🔄 Jogar Novamente</button>
     </div>
@@ -102,12 +151,38 @@
   <!-- ══════════════ GABARITO OVERLAY ══════════════ -->
   <div id="answer-overlay" class="hidden">
     <div id="answer-box">
-      <h2>📋 Gabarito</h2>
+      <h2>📋 Gabarito — Ordem de Montagem</h2>
       <p id="answer-side-label"></p>
-      <div id="answer-grid">
-        <!-- Preenchido por JS -->
-      </div>
+      <div id="answer-grid"><!-- Preenchido por JS --></div>
       <button id="btn-close-answer" class="btn btn-secondary">✕ Fechar</button>
+    </div>
+  </div>
+
+  <!-- ══════════════ FLASH CARDS ══════════════ -->
+  <div id="flashcard-overlay" class="hidden">
+    <div id="flashcard-box">
+      <div id="fc-header">
+        <h2>🃏 Flash Cards — Instrumentos Cirúrgicos</h2>
+        <span id="fc-progress-text">1 / 16</span>
+      </div>
+      <div id="fc-card" title="Clique para revelar nome e função">
+        <div id="fc-front">
+          <img id="fc-img" src="" alt="" />
+          <div id="fc-tap-hint">👆 Clique aqui para revelar</div>
+        </div>
+        <div id="fc-back" class="hidden">
+          <h3 id="fc-name">—</h3>
+          <span id="fc-category" class="category-tag">—</span>
+          <div class="fc-info-row"><strong>Como é:</strong><p id="fc-desc">—</p></div>
+          <div class="fc-info-row"><strong>Para que serve:</strong><p id="fc-func">—</p></div>
+        </div>
+      </div>
+      <div id="fc-controls">
+        <button id="btn-fc-prev" class="btn btn-secondary">◀ Anterior</button>
+        <button id="btn-fc-flip" class="btn btn-primary">🔄 Revelar</button>
+        <button id="btn-fc-next" class="btn btn-secondary">Próximo ▶</button>
+      </div>
+      <button id="btn-close-fc" class="btn btn-sm btn-secondary">✕ Fechar Flash Cards</button>
     </div>
   </div>
 
