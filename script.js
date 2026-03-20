@@ -218,23 +218,25 @@ const INSTRUMENTS = [
 
 const LEFT_LAYOUT_SLOTS = [
   // ── METADE SUPERIOR — Especiais e Síntese ──────────────────────────
-  { id: 'backaus',          slotX:  5,  slotY: 38, slotW:  7, slotH: 18, rotation: -12, order: 1  },
-  { id: 'babykocher',       slotX: 15,  slotY: 12, slotW:  8, slotH: 28, rotation: -10, order: 2  },
-  { id: 'allis',            slotX: 27,  slotY: 22, slotW:  8, slotH: 28, rotation:  -8, order: 3  },
-  { id: 'farabeuf',         slotX: 32,  slotY: 50, slotW: 16, slotH:  9, rotation:   0, order: 4  },
-  { id: 'mixter',           slotX: 47,  slotY: 18, slotW:  8, slotH: 32, rotation:  -4, order: 5  },
-  { id: 'portaagulhavidea', slotX: 59,  slotY:  8, slotW:  8, slotH: 30, rotation:   0, order: 6  },
-  { id: 'pincadentederato', slotX: 72,  slotY:  6, slotW:  5, slotH: 30, rotation:   0, order: 7  },
-  { id: 'pincaanatomica',   slotX: 82,  slotY: 10, slotW:  5, slotH: 30, rotation:   0, order: 8  },
+  // Pinças com anel: rotation = ângulo + 180 (anéis apontam para BAIXO/viewer)
+  { id: 'backaus',          slotX:  5,  slotY: 38, slotW:  7, slotH: 18, rotation: 180 + (-12), order: 1  },
+  { id: 'babykocher',       slotX: 15,  slotY: 12, slotW:  8, slotH: 28, rotation: 180 + (-10), order: 2  },
+  { id: 'allis',            slotX: 27,  slotY: 22, slotW:  8, slotH: 28, rotation: 180 + (-8),  order: 3  },
+  { id: 'farabeuf',         slotX: 32,  slotY: 50, slotW: 16, slotH:  9, rotation:   0,          order: 4  },
+  { id: 'mixter',           slotX: 47,  slotY: 18, slotW:  8, slotH: 32, rotation: 180 + (-4),  order: 5  },
+  { id: 'portaagulhavidea', slotX: 59,  slotY:  8, slotW:  8, slotH: 30, rotation: 180,          order: 6  },
+  { id: 'pincadentederato', slotX: 72,  slotY:  6, slotW:  5, slotH: 30, rotation: 180,          order: 7  },
+  { id: 'pincaanatomica',   slotX: 82,  slotY: 10, slotW:  5, slotH: 30, rotation: 180,          order: 8  },
   // ── METADE INFERIOR — Hemostasia e Diérese ─────────────────────────
-  { id: 'kocher',           slotX:  9,  slotY: 64, slotW:  8, slotH: 30, rotation:  -8, order: 9  },
-  { id: 'kellyreta',        slotX: 21,  slotY: 65, slotW:  8, slotH: 28, rotation:  -6, order: 10 },
-  { id: 'kellycurva',       slotX: 33,  slotY: 64, slotW:  8, slotH: 28, rotation:  -4, order: 11 },
-  { id: 'kellymosquito',    slotX: 45,  slotY: 63, slotW:  7, slotH: 26, rotation:  -2, order: 12 },
-  { id: 'metzenbaumreta',   slotX: 57,  slotY: 57, slotW:  6, slotH: 34, rotation:   0, order: 13 },
-  { id: 'mayo',             slotX: 67,  slotY: 59, slotW:  8, slotH: 32, rotation:   0, order: 14 },
-  { id: 'metzenbaumcurva',  slotX: 78,  slotY: 57, slotW:  6, slotH: 32, rotation:   2, order: 15 },
-  { id: 'bisturi',          slotX: 89,  slotY: 63, slotW:  4, slotH: 26, rotation:   0, order: 16 },
+  { id: 'kocher',           slotX:  9,  slotY: 64, slotW:  8, slotH: 30, rotation: 180 + (-8),  order: 9  },
+  { id: 'kellyreta',        slotX: 21,  slotY: 65, slotW:  8, slotH: 28, rotation: 180 + (-6),  order: 10 },
+  { id: 'kellycurva',       slotX: 33,  slotY: 64, slotW:  8, slotH: 28, rotation: 180 + (-4),  order: 11 },
+  { id: 'kellymosquito',    slotX: 45,  slotY: 63, slotW:  7, slotH: 26, rotation: 180 + (-2),  order: 12 },
+  // Tesouras e bisturi: PNG já tem cabo/anéis embaixo — manter como estão
+  { id: 'metzenbaumreta',   slotX: 57,  slotY: 57, slotW:  6, slotH: 34, rotation:   0,          order: 13 },
+  { id: 'mayo',             slotX: 67,  slotY: 59, slotW:  8, slotH: 32, rotation:   0,          order: 14 },
+  { id: 'metzenbaumcurva',  slotX: 78,  slotY: 57, slotW:  6, slotH: 32, rotation:   2,          order: 15 },
+  { id: 'bisturi',          slotX: 89,  slotY: 63, slotW:  4, slotH: 26, rotation:   0,          order: 16 },
 ];
 
 /** Espelhamento horizontal para mesa à DIREITA (cirurgião à ESQUERDA) */
